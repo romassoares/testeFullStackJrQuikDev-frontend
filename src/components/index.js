@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import {
     Divider,
     Typography,
@@ -51,6 +52,7 @@ const useStyles = makeStyles({
 
 export default function Index() {
     const classes = useStyles();
+    const history = useHistory();
     const [elements, setElements] = useState([]);
     const [genres, setGenres] = useState([])
     const [genre, setGenre] = useState([])
@@ -77,8 +79,9 @@ export default function Index() {
         setElements(results)
     }
 
-    const details = () => {
-
+    const details = async id => {
+        const movie_id = id
+        history.push(`details/${movie_id}`)
     }
 
     useEffect(() => {
@@ -120,7 +123,7 @@ export default function Index() {
                     {
                         (elements) ? ((elements).map((row, index) => (
                             <>
-                                <div className={classes.square} key={row.id} onClick={details}>
+                                <div className={classes.square} key={row.id} onClick={() => details(row.id)}>
                                     <p>{row.original_title}</p>
                                     <p>{row.overview}</p>
                                     <img className={classes.img} src={'https://image.tmdb.org/t/p/w500' + row.poster_path} />

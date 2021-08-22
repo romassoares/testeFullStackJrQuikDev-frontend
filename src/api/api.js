@@ -14,8 +14,9 @@ export const movies = async () => {
 }
 export const details = async (id) => {
     try {
-        const response = await api.get(+ id + '/details');
+        const response = await api.get(id + '/details');
         return response.data
+
     } catch (error) {
         console.error(error);
     }
